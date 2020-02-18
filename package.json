@@ -16,7 +16,7 @@
     "concat-stream": "^1.5.1",
     "convert-source-map": "^1.2.0",
     "deep-extend": "^0.4.1",
-    "electron": "1.4.15",
+    "electron": "^7.1.11",
     "events": "^1.1.0",
     "mime": "^1.3.4",
     "minimist": "^1.2.0",
@@ -46,7 +46,6 @@
     "google-panorama-equirectangular": "^1.2.0",
     "insert-css": "^0.2.0",
     "marked": "^0.3.5",
-    "semistandard": "^7.0.5",
     "tape": "^4.4.0"
   },
   "scripts": {
@@ -59,11 +58,6 @@
     "example:browserify": "./bin/index.js example/browserify.js",
     "example:streetview": "./bin/index.js example/streetview.js -h -i example/streetview.html -q --bf > example/streetview.png",
     "example:tape-browser": "browserify example/tape-browser.js | ./bin/index.js -c -t 1000 | faucet"
-  },
-  "semistandard": {
-    "ignore": [
-      "test/fixtures/*.js"
-    ]
   },
   "keywords": [],
   "repository": {

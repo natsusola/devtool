@@ -4,11 +4,15 @@ var createWatch = require('./lib/file-watch');
 var createMainWindow = require('./lib/main-window');
 var parseArgs = require('./lib/parse-args');
 var mime = require('mime');
-
 var electron = require('electron');
+
 var app = electron.app;
 var ipc = electron.ipcMain;
 var globals;
+
+electron.protocol.registerSchemesAsPrivileged([
+  { scheme: 'file:' },
+]);
 
 var exitWithCode1 = false;
 process.removeAllListeners('uncaughtException');
@@ -68,8 +72,6 @@ app.on('quit', function () {
 });
 
 app.on('ready', function () {
-  electron.protocol.registerServiceWorkerSchemes(['file:']);
-
   // Get starting HTML file
   var htmlFile = path.resolve(__dirname, 'lib', 'index.html');
   var customHtml = false; // if we should watch it as well
@@ -83,8 +85,6 @@ app.on('ready', function () {
   // Replace index.html with custom one
   electron.protocol.interceptBufferProtocol('file', function (request, callback) {
     // We can't just spin up a local server for this, see here:
-    // https://github.com/atom/electron/issues/2414
-
     var file = request.url;
     if (file === mainIndexURL) {
       file = htmlFile;
